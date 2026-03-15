@@ -1,0 +1,366 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\graphiceditor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\controllers\\shapecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\controllers\\shapecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\factories\\shapefactoryprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\factories\\shapefactoryprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\factories\\shape3dfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\factories\\shape3dfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\factories\\shape2dfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\factories\\shape2dfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\shapes3d\\tetrahedron.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\shapes3d\\tetrahedron.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\shapes\\rectangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\shapes\\rectangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\factories\\ishapefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\factories\\ishapefactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\projection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\projection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\shapes3d\\sphere.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\shapes3d\\sphere.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\shapes3d\\cube.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\shapes3d\\cube.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\shapes3d\\ishape3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\shapes3d\\ishape3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\shapes\\triangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\shapes\\triangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\shapes\\circle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\shapes\\circle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\shapes\\ishape.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\shapes\\ishape.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\point3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\point3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|c:\\users\\ilkoon1\\ownfloader\\bsuir\\oop\\labs_wp\\oop_lab\\graphiceditor\\graphiceditor\\models\\point2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D5777AA-E345-0478-ABFF-43F942FE714B}|GraphicEditor\\GraphicEditor.csproj|solutionrelative:graphiceditor\\models\\point2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Form1.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Form1.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Form1.cs",
+              "RelativeToolTip": "GraphicEditor\\Form1.cs",
+              "ViewState": "AgIAAIQBAAAAAAAAAAAuwI4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T18:54:53.911Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Form1.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Form1.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Form1.cs [Design]",
+              "RelativeToolTip": "GraphicEditor\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T18:40:00.835Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Form1.Designer.cs",
+              "RelativeToolTip": "GraphicEditor\\Form1.Designer.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAApwGAAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:22:47.553Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Program.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Program.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Program.cs",
+              "RelativeToolTip": "GraphicEditor\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:21:02.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Shape2DFactory.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Factories\\Shape2DFactory.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Factories\\Shape2DFactory.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Factories\\Shape2DFactory.cs",
+              "RelativeToolTip": "GraphicEditor\\Factories\\Shape2DFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:11:32.919Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Shape3DFactory.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Factories\\Shape3DFactory.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Factories\\Shape3DFactory.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Factories\\Shape3DFactory.cs",
+              "RelativeToolTip": "GraphicEditor\\Factories\\Shape3DFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:11:40.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ShapeFactoryProvider.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Factories\\ShapeFactoryProvider.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Factories\\ShapeFactoryProvider.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Factories\\ShapeFactoryProvider.cs",
+              "RelativeToolTip": "GraphicEditor\\Factories\\ShapeFactoryProvider.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:11:49.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ShapeController.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Controllers\\ShapeController.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Controllers\\ShapeController.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Controllers\\ShapeController.cs",
+              "RelativeToolTip": "GraphicEditor\\Controllers\\ShapeController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:12:16.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Tetrahedron.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes3D\\Tetrahedron.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Shapes3D\\Tetrahedron.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes3D\\Tetrahedron.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Shapes3D\\Tetrahedron.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:10:44.793Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Rectangle.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes\\Rectangle.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Shapes\\Rectangle.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes\\Rectangle.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Shapes\\Rectangle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:09:42.404Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IShapeFactory.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Factories\\IShapeFactory.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Factories\\IShapeFactory.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Factories\\IShapeFactory.cs",
+              "RelativeToolTip": "GraphicEditor\\Factories\\IShapeFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:11:23.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Projection.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Projection.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Projection.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Projection.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Projection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:11:01.26Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Sphere.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes3D\\Sphere.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Shapes3D\\Sphere.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes3D\\Sphere.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Shapes3D\\Sphere.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAgwAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:10:35.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Cube.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes3D\\Cube.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Shapes3D\\Cube.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes3D\\Cube.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Shapes3D\\Cube.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAswAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:10:24.916Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IShape3D.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes3D\\IShape3D.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Shapes3D\\IShape3D.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes3D\\IShape3D.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Shapes3D\\IShape3D.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:10:15.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Triangle.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes\\Triangle.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Shapes\\Triangle.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes\\Triangle.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Shapes\\Triangle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:09:48.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Circle.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes\\Circle.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Shapes\\Circle.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes\\Circle.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Shapes\\Circle.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAgwAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:09:33.869Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IShape.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes\\IShape.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Shapes\\IShape.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Shapes\\IShape.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Shapes\\IShape.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:09:25.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Point3D.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Point3D.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Point3D.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Point3D.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Point3D.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:09:03.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Point2D.cs",
+              "DocumentMoniker": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Point2D.cs",
+              "RelativeDocumentMoniker": "GraphicEditor\\Models\\Point2D.cs",
+              "ToolTip": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\Models\\Point2D.cs",
+              "RelativeToolTip": "GraphicEditor\\Models\\Point2D.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T20:08:53.112Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{de1fc918-f32e-4dd7-a915-1792a051f26b}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
