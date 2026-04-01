@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GraphicEditor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ccbec4732d80031b3f5e659eff80d92edf341a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("GraphicEditor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GraphicEditor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

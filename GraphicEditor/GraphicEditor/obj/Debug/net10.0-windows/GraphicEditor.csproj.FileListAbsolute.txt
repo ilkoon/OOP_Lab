@@ -14,3 +14,7 @@ C:\Users\ilkoon1\OwnFloader\bsuir\OOP\labs_wp\OOP_Lab\GraphicEditor\GraphicEdito
 C:\Users\ilkoon1\OwnFloader\bsuir\OOP\labs_wp\OOP_Lab\GraphicEditor\GraphicEditor\obj\Debug\net10.0-windows\GraphicEditor.pdb
 C:\Users\ilkoon1\OwnFloader\bsuir\OOP\labs_wp\OOP_Lab\GraphicEditor\GraphicEditor\obj\Debug\net10.0-windows\GraphicEditor.genruntimeconfig.cache
 C:\Users\ilkoon1\OwnFloader\bsuir\OOP\labs_wp\OOP_Lab\GraphicEditor\GraphicEditor\obj\Debug\net10.0-windows\ref\GraphicEditor.dll
+C:\Users\ilkoon1\OwnFloader\bsuir\OOP\labs_wp\OOP_Lab\GraphicEditor\GraphicEditor\obj\Debug\net10.0-windows\GraphicEditor.sourcelink.json
+C:\Users\ilkoon1\OwnFloader\bsuir\OOP\labs_wp\OOP_Lab\GraphicEditor\GraphicEditor\bin\Debug\net10.0-windows\Newtonsoft.Json.dll
+C:\Users\ilkoon1\OwnFloader\bsuir\OOP\labs_wp\OOP_Lab\GraphicEditor\GraphicEditor\obj\Debug\net10.0-windows\GraphicEditor.csproj.AssemblyReference.cache
+C:\Users\ilkoon1\OwnFloader\bsuir\OOP\labs_wp\OOP_Lab\GraphicEditor\GraphicEditor\obj\Debug\net10.0-windows\GraphicE.6F691B8F.Up2Date

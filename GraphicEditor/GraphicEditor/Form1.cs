@@ -1,9 +1,13 @@
+using GraphicEditor.Controllers;
+using GraphicEditor.Models.Shapes;
+using GraphicEditor.Models.Shapes3D;
+using Newtonsoft.Json;  
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
-using GraphicEditor.Controllers;
-using GraphicEditor.Models.Shapes;
+using GraphicEditor.Models;
 
 namespace GraphicEditor
 {
@@ -26,6 +30,19 @@ namespace GraphicEditor
         private Button clearButton;
         private Label instructionLabel;
         private Label statusLabel;
+        private ListBox shapesListBox;
+        // Controls for editing
+        private GroupBox editGroup;
+        private Panel editPropertiesPanel;
+        private TextBox txtParam1;
+        private TextBox txtParam2;
+        private TextBox txtParam3;
+        private TextBox txtParam4;
+        private Label lblParam1;
+        private Label lblParam2;
+        private Label lblParam3;
+        private Label lblParam4;
+        private Button btnUpdate;
 
         public MainForm()
         {
@@ -36,6 +53,7 @@ namespace GraphicEditor
             InitializeComponent();
             InitializeCustomControls();
             UpdateShapeTypes();
+            UpdateShapesList();
         }
 
 
@@ -137,10 +155,83 @@ namespace GraphicEditor
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
+
+            // Shapes list group
+            GroupBox listGroup = new GroupBox
+            {
+                Text = "Shapes List",
+                Location = new Point(20, currentY + 100),
+                Size = new Size(500, 200)
+            };
+
+            shapesListBox = new ListBox
+            {
+                Location = new Point(10, 25),
+                Size = new Size(480, 140),
+                Font = new Font("Arial", 9)
+            };
+            shapesListBox.SelectedIndexChanged += ShapesListBox_SelectedIndexChanged;
+
+            listGroup.Controls.Add(shapesListBox);
+
+            currentY += 220; // Смещаем Y для следующего элемента
+
+
+            // Edit properties group
+            editGroup = new GroupBox
+            {
+                Text = "Edit Properties",
+                Location = new Point(20, currentY + 100),
+                Size = new Size(500, 200)
+            };
+
+            editPropertiesPanel = new Panel
+            {
+                Location = new Point(10, 25),
+                Size = new Size(480, 120)
+            };
+
+            // Create dynamic property controls (will be populated when shape is selected)
+            txtParam1 = new TextBox { Location = new Point(120, 10), Size = new Size(150, 25), Visible = false };
+            txtParam2 = new TextBox { Location = new Point(120, 45), Size = new Size(150, 25), Visible = false };
+            txtParam3 = new TextBox { Location = new Point(120, 80), Size = new Size(150, 25), Visible = false };
+            txtParam4 = new TextBox { Location = new Point(120, 115), Size = new Size(150, 25), Visible = false };
+
+            lblParam1 = new Label { Location = new Point(20, 13), Size = new Size(90, 25), Text = "", Visible = false };
+            lblParam2 = new Label { Location = new Point(20, 48), Size = new Size(90, 25), Text = "", Visible = false };
+            lblParam3 = new Label { Location = new Point(20, 83), Size = new Size(90, 25), Text = "", Visible = false };
+            lblParam4 = new Label { Location = new Point(20, 118), Size = new Size(90, 25), Text = "", Visible = false };
+
+            btnUpdate = new Button
+            {
+                Text = "Update Shape",
+                Location = new Point(10, 150),
+                Size = new Size(120, 35)
+            };
+            btnUpdate.Click += BtnUpdate_Click;
+
+            editPropertiesPanel.Controls.AddRange(new Control[] {
+                                                    txtParam1, txtParam2, txtParam3, txtParam4,
+                                                    lblParam1, lblParam2, lblParam3, lblParam4
+                                                });
+
+            editGroup.Controls.AddRange(new Control[] { editPropertiesPanel, btnUpdate });
+
+            currentY += 220; // Adjust for next controls
+
+            // Update the panelEditor.Controls.AddRange to include editGroup
+            panelEditor.Controls.AddRange(new Control[] {
+                                            modeGroup,
+                                            shapeGroup,
+                                            listGroup,
+                                            editGroup  // ← Add this line
+                                        });
+
             // Add all controls to panelEditor
             panelEditor.Controls.AddRange(new Control[] {
                 modeGroup,
                 shapeGroup,
+                    listGroup,
             });
 
             // Setup mouse events for panelDraw
@@ -170,6 +261,354 @@ namespace GraphicEditor
                 _currentShapeType = shapeTypeCombo.SelectedItem.ToString();
                 statusLabel.Text = $"Selected: {_currentShapeType} - Draw on canvas";
             }
+        }
+
+        /// <summary>
+        /// Update selected shape properties
+        /// </summary>
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Just trigger the same update as the Update button
+            BtnUpdate_Click(sender, e);
+        }
+
+
+        /// <summary>
+        /// Safely parses float from text, returns default if invalid
+        /// </summary>
+        private float SafeParseFloat(string text, float defaultValue = 0)
+        {
+            if (float.TryParse(text, out float result))
+                return result;
+            return defaultValue;
+        }
+
+
+        /// <summary>
+        /// Displays properties of the selected shape in the edit panel
+        /// </summary>
+        private void DisplayShapeProperties()
+        {
+            // Hide all property controls initially
+            txtParam1.Visible = false;
+            txtParam2.Visible = false;
+            txtParam3.Visible = false;
+            txtParam4.Visible = false;
+            lblParam1.Visible = false;
+            lblParam2.Visible = false;
+            lblParam3.Visible = false;
+            lblParam4.Visible = false;
+
+            if (shapesListBox.SelectedIndex == -1)
+            {
+                btnUpdate.Enabled = false;
+                return;
+            }
+
+            btnUpdate.Enabled = true;
+            int selectedIndex = shapesListBox.SelectedIndex;
+            int shapes2DCount = _controller.GetAllShapes2D().Count;
+
+            if (selectedIndex < shapes2DCount)
+            {
+                // 2D shape selected
+                var shape = _controller.GetAllShapes2D()[selectedIndex];
+                Display2DShapeProperties(shape);
+            }
+            else
+            {
+                // 3D shape selected
+                int shape3DIndex = selectedIndex - shapes2DCount;
+                var shape = _controller.GetAllShapes3D()[shape3DIndex];
+                Display3DShapeProperties(shape);
+            }
+        }
+
+        /// <summary>
+        /// Displays properties for 2D shapes
+        /// </summary>
+        private void Display2DShapeProperties(IShape shape)
+        {
+            switch (shape.GetName())
+            {
+                case "Circle":
+                    var circle = shape as Circle;
+                    lblParam1.Text = "Center X:";
+                    lblParam2.Text = "Center Y:";
+                    lblParam3.Text = "Radius:";
+
+                    txtParam1.Text = circle.Center.X.ToString();
+                    txtParam2.Text = circle.Center.Y.ToString();
+                    txtParam3.Text = circle.Radius.ToString();
+
+                    txtParam1.Visible = true;
+                    txtParam2.Visible = true;
+                    txtParam3.Visible = true;
+                    lblParam1.Visible = true;
+                    lblParam2.Visible = true;
+                    lblParam3.Visible = true;
+                    break;
+
+                case "Rectangle":
+                    var rect = shape as GraphicEditor.Models.Shapes.Rectangle;
+                    lblParam1.Text = "X:";
+                    lblParam2.Text = "Y:";
+                    lblParam3.Text = "Width:";
+                    lblParam4.Text = "Height:";
+
+                    txtParam1.Text = rect.TopLeft.X.ToString();
+                    txtParam2.Text = rect.TopLeft.Y.ToString();
+                    txtParam3.Text = rect.Width.ToString();
+                    txtParam4.Text = rect.Height.ToString();
+
+                    txtParam1.Visible = true;
+                    txtParam2.Visible = true;
+                    txtParam3.Visible = true;
+                    txtParam4.Visible = true;
+                    lblParam1.Visible = true;
+                    lblParam2.Visible = true;
+                    lblParam3.Visible = true;
+                    lblParam4.Visible = true;
+                    break;
+
+                case "Triangle":
+                    var tri = shape as Triangle;
+                    lblParam1.Text = "X1, Y1:";
+                    lblParam2.Text = "X2, Y2:";
+                    lblParam3.Text = "X3, Y3:";
+
+                    txtParam1.Text = $"{tri.Point1.X},{tri.Point1.Y}";
+                    txtParam2.Text = $"{tri.Point2.X},{tri.Point2.Y}";
+                    txtParam3.Text = $"{tri.Point3.X},{tri.Point3.Y}";
+
+                    txtParam1.Visible = true;
+                    txtParam2.Visible = true;
+                    txtParam3.Visible = true;
+                    lblParam1.Visible = true;
+                    lblParam2.Visible = true;
+                    lblParam3.Visible = true;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Displays properties for 3D shapes
+        /// </summary>
+        private void Display3DShapeProperties(IShape3D shape)
+        {
+            switch (shape.GetName())
+            {
+                case "Cube":
+                    var cube = shape as Cube;
+                    lblParam1.Text = "Center X:";
+                    lblParam2.Text = "Center Y:";
+                    lblParam3.Text = "Center Z:";
+                    lblParam4.Text = "Size:";
+
+                    txtParam1.Text = cube.Center.X.ToString();
+                    txtParam2.Text = cube.Center.Y.ToString();
+                    txtParam3.Text = cube.Center.Z.ToString();
+                    txtParam4.Text = cube.Size.ToString();
+
+                    txtParam1.Visible = true;
+                    txtParam2.Visible = true;
+                    txtParam3.Visible = true;
+                    txtParam4.Visible = true;
+                    lblParam1.Visible = true;
+                    lblParam2.Visible = true;
+                    lblParam3.Visible = true;
+                    lblParam4.Visible = true;
+                    break;
+
+                case "Sphere":
+                    var sphere = shape as Sphere;
+                    lblParam1.Text = "Center X:";
+                    lblParam2.Text = "Center Y:";
+                    lblParam3.Text = "Center Z:";
+                    lblParam4.Text = "Radius:";
+
+                    txtParam1.Text = sphere.Center.X.ToString();
+                    txtParam2.Text = sphere.Center.Y.ToString();
+                    txtParam3.Text = sphere.Center.Z.ToString();
+                    txtParam4.Text = sphere.Radius.ToString();
+
+                    txtParam1.Visible = true;
+                    txtParam2.Visible = true;
+                    txtParam3.Visible = true;
+                    txtParam4.Visible = true;
+                    lblParam1.Visible = true;
+                    lblParam2.Visible = true;
+                    lblParam3.Visible = true;
+                    lblParam4.Visible = true;
+                    break;
+
+                case "Tetrahedron":
+                    var tetra = shape as Tetrahedron;
+                    lblParam1.Text = "Center X:";
+                    lblParam2.Text = "Center Y:";
+                    lblParam3.Text = "Center Z:";
+                    lblParam4.Text = "Size:";
+
+                    txtParam1.Text = tetra.Center.X.ToString();
+                    txtParam2.Text = tetra.Center.Y.ToString();
+                    txtParam3.Text = tetra.Center.Z.ToString();
+                    txtParam4.Text = tetra.Size.ToString();
+
+                    txtParam1.Visible = true;
+                    txtParam2.Visible = true;
+                    txtParam3.Visible = true;
+                    txtParam4.Visible = true;
+                    lblParam1.Visible = true;
+                    lblParam2.Visible = true;
+                    lblParam3.Visible = true;
+                    lblParam4.Visible = true;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Updates the selected shape with new property values
+        /// </summary>
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            if (shapesListBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a shape to update.", "No Selection",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                int selectedIndex = shapesListBox.SelectedIndex;
+                int shapes2DCount = _controller.GetAllShapes2D().Count;
+
+                if (selectedIndex < shapes2DCount)
+                {
+                    // Update 2D shape
+                    var shape = _controller.GetAllShapes2D()[selectedIndex];
+                    Update2DShape(shape);
+                }
+                else
+                {
+                    // Update 3D shape
+                    int shape3DIndex = selectedIndex - shapes2DCount;
+                    var shape = _controller.GetAllShapes3D()[shape3DIndex];
+                    Update3DShape(shape);
+                }
+
+                // Refresh display
+                UpdateShapesList();  // Refresh list to show updated info
+                panelDraw.Invalidate();  // Redraw canvas
+                DisplayShapeProperties();  // Refresh property display
+
+                statusLabel.Text = "Shape updated successfully";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating shape: {ex.Message}", "Update Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                statusLabel.Text = "Error updating shape";
+            }
+        }
+
+        /// <summary>
+        /// Updates a 2D shape with new property values
+        /// </summary>
+        private void Update2DShape(IShape shape)
+        {
+            switch (shape.GetName())
+            {
+                case "Circle":
+                    var circle = shape as Circle;
+                    circle.Center.X = float.Parse(txtParam1.Text);
+                    circle.Center.Y = float.Parse(txtParam2.Text);
+                    circle.Radius = float.Parse(txtParam3.Text);
+                    break;
+
+                case "Rectangle":
+                    var rect = shape as GraphicEditor.Models.Shapes.Rectangle;
+                    rect.TopLeft.X = float.Parse(txtParam1.Text);
+                    rect.TopLeft.Y = float.Parse(txtParam2.Text);
+                    rect.Width = float.Parse(txtParam3.Text);
+                    rect.Height = float.Parse(txtParam4.Text);
+                    break;
+
+                case "Triangle":
+                    var tri = shape as Triangle;
+                    string[] parts1 = txtParam1.Text.Split(',');
+                    string[] parts2 = txtParam2.Text.Split(',');
+                    string[] parts3 = txtParam3.Text.Split(',');
+
+                    tri.Point1.X = float.Parse(parts1[0]);
+                    tri.Point1.Y = float.Parse(parts1[1]);
+                    tri.Point2.X = float.Parse(parts2[0]);
+                    tri.Point2.Y = float.Parse(parts2[1]);
+                    tri.Point3.X = float.Parse(parts3[0]);
+                    tri.Point3.Y = float.Parse(parts3[1]);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Updates a 3D shape with new property values
+        /// </summary>
+        private void Update3DShape(IShape3D shape)
+        {
+            switch (shape.GetName())
+            {
+                case "Cube":
+                    var cube = shape as Cube;
+                    cube.Center.X = float.Parse(txtParam1.Text);
+                    cube.Center.Y = float.Parse(txtParam2.Text);
+                    cube.Center.Z = float.Parse(txtParam3.Text);
+                    cube.Size = float.Parse(txtParam4.Text);
+                    break;
+
+                case "Sphere":
+                    var sphere = shape as Sphere;
+                    sphere.Center.X = float.Parse(txtParam1.Text);
+                    sphere.Center.Y = float.Parse(txtParam2.Text);
+                    sphere.Center.Z = float.Parse(txtParam3.Text);
+                    sphere.Radius = float.Parse(txtParam4.Text);
+                    break;
+
+                case "Tetrahedron":
+                    var tetra = shape as Tetrahedron;
+                    tetra.Center.X = float.Parse(txtParam1.Text);
+                    tetra.Center.Y = float.Parse(txtParam2.Text);
+                    tetra.Center.Z = float.Parse(txtParam3.Text);
+                    tetra.Size = float.Parse(txtParam4.Text);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles selection change in shapes listbox
+        /// </summary>
+        private void ShapesListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (shapesListBox.SelectedIndex == -1) return;
+
+            int selectedIndex = shapesListBox.SelectedIndex;
+            int shapes2DCount = _controller.GetAllShapes2D().Count;
+
+            if (selectedIndex < shapes2DCount)
+            {
+                // Selected 2D shape
+                var shape = _controller.GetAllShapes2D()[selectedIndex];
+                statusLabel.Text = $"Selected: 2D {shape.GetName()} - Modify properties and click Update";
+            }
+            else
+            {
+                // Selected 3D shape
+                int shape3DIndex = selectedIndex - shapes2DCount;
+                var shape = _controller.GetAllShapes3D()[shape3DIndex];
+                statusLabel.Text = $"Selected: 3D {shape.GetName()} - Modify properties and click Update";
+            }
+
+            // Display properties for editing
+            DisplayShapeProperties();
         }
 
         private void ModeRadio_CheckedChanged(object sender, EventArgs e)
@@ -255,6 +694,8 @@ namespace GraphicEditor
 
                 _controller.CreateShape(_currentShapeType, parameters);
 
+                UpdateShapesList();
+
                 statusLabel.Text = $"Created {_currentShapeType}";
             }
             catch (Exception ex)
@@ -303,6 +744,58 @@ namespace GraphicEditor
 
                 default:
                     throw new NotSupportedException($"Shape {shapeType} not supported");
+            }
+        }
+
+        // Добавьте этот метод в класс MainForm (например, после GenerateShapeParameters)
+
+        /// <summary>
+        /// Extracts parameters string from a 2D shape for serialization
+        /// </summary>
+        /// <summary>
+        /// Extracts parameters string from a 2D shape for serialization
+        /// </summary>
+        private string GetShapeParameters(IShape shape)
+        {
+            switch (shape.GetName())
+            {
+                case "Circle":
+                    var circle = shape as Circle;
+                    return $"{circle.Center.X},{circle.Center.Y},{circle.Radius}";
+
+                case "Rectangle":
+                    var rect = shape as GraphicEditor.Models.Shapes.Rectangle;
+                    return $"{rect.TopLeft.X},{rect.TopLeft.Y},{rect.Width},{rect.Height}";
+
+                case "Triangle":
+                    var tri = shape as Triangle;
+                    return $"{tri.Point1.X},{tri.Point1.Y},{tri.Point2.X},{tri.Point2.Y},{tri.Point3.X},{tri.Point3.Y}";
+
+                default:
+                    return "";
+            }
+        }
+        /// <summary>
+        /// Extracts parameters string from a 3D shape for serialization
+        /// </summary>
+        private string GetShapeParameters3D(IShape3D shape)
+        {
+            switch (shape.GetName())
+            {
+                case "Cube":
+                    var cube = shape as Cube;
+                    return $"{cube.Center.X},{cube.Center.Y},{cube.Center.Z},{cube.Size}";
+
+                case "Sphere":
+                    var sphere = shape as Sphere;
+                    return $"{sphere.Center.X},{sphere.Center.Y},{sphere.Center.Z},{sphere.Radius}";
+
+                case "Tetrahedron":
+                    var tetra = shape as Tetrahedron;
+                    return $"{tetra.Center.X},{tetra.Center.Y},{tetra.Center.Z},{tetra.Size}";
+
+                default:
+                    return "";
             }
         }
 
@@ -400,8 +893,269 @@ namespace GraphicEditor
             _controller.ClearAll();
             _startPoint = null;
             _currentPoint = null;
+            UpdateShapesList();
             panelDraw.Invalidate();
             statusLabel.Text = "Canvas cleared";
+        }
+
+
+        /// <summary>
+        /// Save all shapes to JSON file
+        /// </summary>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "JSON files (*.json)|*.json";
+                sfd.DefaultExt = "json";
+                sfd.FileName = "shapes.json";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        var container = new ShapesContainer();
+
+                        // Get all 2D shapes
+                        var shapes2D = _controller.GetAllShapes2D();
+                        foreach (var shape in shapes2D)
+                        {
+                            container.Shapes.Add(new ShapeData
+                            {
+                                Mode = "2D",
+                                ShapeType = shape.GetName(),
+                                Parameters = GetShapeParameters(shape)
+                            });
+                        }
+
+                        // Get all 3D shapes
+                        var shapes3D = _controller.GetAllShapes3D();
+                        foreach (var shape in shapes3D)
+                        {
+                            container.Shapes.Add(new ShapeData
+                            {
+                                Mode = "3D",
+                                ShapeType = shape.GetName(),
+                                Parameters = GetShapeParameters3D(shape)
+                            });
+                        }
+
+                        container.SavedAt = DateTime.Now;
+
+                        string json = JsonConvert.SerializeObject(container, Formatting.Indented);
+                        File.WriteAllText(sfd.FileName, json);
+
+                        statusLabel.Text = $"Saved {container.Shapes.Count} shapes to {sfd.FileName}";
+                        MessageBox.Show($"Successfully saved {container.Shapes.Count} shapes!", "Save Successful",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error saving file: {ex.Message}", "Save Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        statusLabel.Text = "Error saving file";
+                    }
+                }
+            }
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           /// <summary>
+            /// Load shapes from JSON file
+            /// </summary>
+
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "JSON files (*.json)|*.json";
+                ofd.DefaultExt = "json";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        string json = File.ReadAllText(ofd.FileName);
+                        var container = JsonConvert.DeserializeObject<ShapesContainer>(json);
+
+                        if (container == null || container.Shapes == null)
+                        {
+                            MessageBox.Show("Invalid file format or empty file", "Load Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Clear existing shapes
+                        _controller.ClearAll();
+
+                        // Restore mode to match first shape (or keep current mode)
+                        // We'll load shapes into appropriate mode lists
+                        foreach (var shapeData in container.Shapes)
+                        {
+                            try
+                            {
+                                // Temporarily switch mode to match the shape being loaded
+                                bool originalMode = _is3DMode;
+
+                                if (shapeData.Mode == "2D")
+                                {
+                                    // Make sure we're in 2D mode for this shape
+                                    if (_is3DMode)
+                                    {
+                                        _controller.SetMode(false);
+                                        _is3DMode = false;
+                                        // Update UI to reflect mode change
+                                        mode2DRadio.Checked = true;
+                                    }
+                                }
+                                else // "3D"
+                                {
+                                    // Make sure we're in 3D mode for this shape
+                                    if (!_is3DMode)
+                                    {
+                                        _controller.SetMode(true);
+                                        _is3DMode = true;
+                                        // Update UI to reflect mode change
+                                        mode3DRadio.Checked = true;
+                                    }
+                                }
+
+                                // Create the shape
+                                _controller.CreateShape(shapeData.ShapeType, shapeData.Parameters);
+                            }
+                            catch (Exception ex)
+                            {
+                                // Log error but continue loading other shapes
+                                System.Diagnostics.Debug.WriteLine($"Error loading shape {shapeData.ShapeType}: {ex.Message}");
+                            }
+                        }
+
+                        UpdateShapesList();
+
+                        // Refresh the canvas
+                        panelDraw.Invalidate();
+
+                        statusLabel.Text = $"Loaded {container.Shapes.Count} shapes from {ofd.FileName}";
+                        MessageBox.Show($"Successfully loaded {container.Shapes.Count} shapes!", "Load Successful",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading file: {ex.Message}", "Load Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        statusLabel.Text = "Error loading file";
+                    }
+                }
+            }
+        }
+
+        private void dleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /// <summary>
+            /// Delete selected shape
+            /// </summary>
+
+            if (shapesListBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a shape to delete.", "No Selection",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int selectedIndex = shapesListBox.SelectedIndex;
+            int shapes2DCount = _controller.GetAllShapes2D().Count;
+
+            // Confirm deletion
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete the selected shape?",
+                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                // Temporarily store current mode to know which list to delete from
+                bool originalMode = _is3DMode;
+
+                if (selectedIndex < shapes2DCount)
+                {
+                    // Deleting 2D shape
+                    if (originalMode)
+                    {
+                        _controller.SetMode(false);
+                    }
+                    _controller.DeleteShape(selectedIndex);
+                    if (originalMode)
+                    {
+                        _controller.SetMode(true);
+                    }
+                }
+                else
+                {
+                    // Deleting 3D shape
+                    int shape3DIndex = selectedIndex - shapes2DCount;
+                    if (!originalMode)
+                    {
+                        _controller.SetMode(true);
+                    }
+                    _controller.DeleteShape(shape3DIndex);
+                    if (!originalMode)
+                    {
+                        _controller.SetMode(false);
+                    }
+                }
+
+                // Update UI
+                UpdateShapesList();
+                panelDraw.Invalidate();
+
+                statusLabel.Text = "Shape deleted successfully";
+            }
+        }
+        
+
+        /// <summary>
+        /// Updates the shapes listbox with current shapes
+        /// </summary>
+        private void UpdateShapesList()
+        {
+            if (shapesListBox == null) return;
+
+            shapesListBox.Items.Clear();
+
+            var shapes2D = _controller.GetAllShapes2D();
+            var shapes3D = _controller.GetAllShapes3D();
+
+            int index = 0;
+
+            // Add 2D shapes
+            foreach (var shape in shapes2D)
+            {
+                string displayText = $"[2D] {shape.GetName()} #{index + 1}";
+                shapesListBox.Items.Add(displayText);
+                index++;
+            }
+
+            // Add 3D shapes
+            foreach (var shape in shapes3D)
+            {
+                string displayText = $"[3D] {shape.GetName()} #{index + 1}";
+                shapesListBox.Items.Add(displayText);
+                index++;
+            }
+
+            if (shapesListBox.Items.Count > 0)
+            {
+                shapesListBox.SelectedIndex = 0;
+            }
+        }
+
+
+        /// <summary>
+        /// Updates the delete menu item enabled state
+        /// </summary>
+        private void UpdateDeleteMenuItem()
+        {
+            int shapeCount = _controller.GetShapeCount();
+            dleteToolStripMenuItem.Enabled = (shapeCount > 0 && shapesListBox.SelectedIndex != -1);
         }
     }
 }

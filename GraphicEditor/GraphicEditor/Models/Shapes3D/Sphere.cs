@@ -5,9 +5,9 @@ using GraphicEditor.Models;
 
 namespace GraphicEditor.Models.Shapes3D
 {
-
+    /// <summary>
     /// Sphere 3D shape implementation
-
+    /// </summary>
     public class Sphere : IShape3D
     {
         public Point3D Center { get; set; }
@@ -24,29 +24,29 @@ namespace GraphicEditor.Models.Shapes3D
         public List<Point3D> GetPoints3D()
         {
             var points = new List<Point3D>();
-            int segments = 20;
+            int segments = 25; 
+            int circles = 5;   
 
-            for (int i = 0; i <= segments; i++)
+            for (int j = 1; j <= circles; j++)
             {
-                float theta = (float)(2 * Math.PI * i / segments);
+                float phi = (float)(Math.PI * j / (circles + 1) - Math.PI / 2);
+                float r = Radius * (float)Math.Cos(phi);
+                float y = Center.Y + Radius * (float)Math.Sin(phi);
 
-                points.Add(new Point3D(
-                    Center.X + Radius * (float)Math.Cos(theta),
-                    Center.Y + Radius * (float)Math.Sin(theta),
-                    Center.Z
-                ));
+            }
 
-                points.Add(new Point3D(
-                    Center.X + Radius * (float)Math.Cos(theta),
-                    Center.Y,
-                    Center.Z + Radius * (float)Math.Sin(theta)
-                ));
+            for (int j = 0; j < circles + 1; j++)
+            {
+                float theta = (float)(2 * Math.PI * j / (circles + 1));
 
-                points.Add(new Point3D(
-                    Center.X,
-                    Center.Y + Radius * (float)Math.Cos(theta),
-                    Center.Z + Radius * (float)Math.Sin(theta)
-                ));
+                for (int i = 0; i <= segments; i++)
+                {
+                    float phi = (float)(Math.PI * i / segments - Math.PI / 2);
+                    float x = Center.X + Radius * (float)Math.Cos(phi) * (float)Math.Cos(theta);
+                    float y = Center.Y + Radius * (float)Math.Sin(phi);
+                    float z = Center.Z + Radius * (float)Math.Cos(phi) * (float)Math.Sin(theta);
+                    points.Add(new Point3D(x, y, z));
+                }
             }
 
             return points;

@@ -8,7 +8,6 @@ namespace GraphicEditor.Controllers
 {
 
     /// Controller that handles shape creation and management
-
     public class ShapeController
     {
         private readonly List<IShape> _shapes2D;
@@ -70,6 +69,53 @@ namespace GraphicEditor.Controllers
             _shapes3D.Clear();
         }
 
+
+        /// <summary>
+        /// Gets all 2D shapes for serialization
+        /// </summary>
+        public List<IShape> GetAllShapes2D()
+        {
+            return new List<IShape>(_shapes2D);
+        }
+
+        /// <summary>
+        /// Gets all 3D shapes for serialization
+        /// </summary>
+        public List<IShape3D> GetAllShapes3D()
+        {
+            return new List<IShape3D>(_shapes3D);
+        }
+
+        /// <summary>
+        /// Deletes a shape at specified index from the current mode's list
+        /// </summary>
+        public void DeleteShape(int index)
+        {
+            if (_is3DMode)
+            {
+                if (index >= 0 && index < _shapes3D.Count)
+                {
+                    _shapes3D.RemoveAt(index);
+                }
+            }
+            else
+            {
+                if (index >= 0 && index < _shapes2D.Count)
+                {
+                    _shapes2D.RemoveAt(index);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of shapes in current mode
+        /// </summary>
+        public int GetShapeCount()
+        {
+            return _is3DMode ? _shapes3D.Count : _shapes2D.Count;
+        }
+
+
         private class ProjectedShapeAdapter : IShape
         {
             private readonly IShape3D _shape3D;
@@ -98,6 +144,7 @@ namespace GraphicEditor.Controllers
             {
                 _shape3D.SetParameters(input);
             }
+
         }
     }
 }

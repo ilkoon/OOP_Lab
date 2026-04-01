@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "zGI3v/RjWAs=",
+  "dgSpecHash": "8oZa+w5JOwc=",
   "success": true,
   "projectFilePath": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\GraphicEditor\\GraphicEditor.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ilkoon1\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512"
+  ],
   "logs": []
 }
