@@ -9,9 +9,7 @@ namespace GraphicEditor.Models
     /// </summary>
     public class ShapeData
     {
-        /// <summary>
-        /// Shape mode: "2D" or "3D"
-        /// </summary>
+
         public string Mode { get; set; }
 
         /// <summary>

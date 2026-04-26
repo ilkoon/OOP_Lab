@@ -1,3 +1,7 @@
 <Solution>
   <Project Path="GraphicEditor/GraphicEditor.csproj" />
+  <Project Path="HexagonPlugin/HexagonPlugin.csproj" Id="1f26a8fd-a5c8-4f14-8c34-f0e8d4e363e0" />
+  <Project Path="PentagonPlugin/PentagonPlugin.csproj" Id="ea699564-bac2-4812-a018-34dfdaae24d3" />
+  <Project Path="PluginSigner/PluginSigner.csproj" Id="116e1d6b-aa83-400f-80fa-a0a0a11e417a" />
+  <Project Path="StarPlugin/StarPlugin.csproj" Id="58889089-6b71-4d4b-a534-5729bef8b737" />
 </Solution>

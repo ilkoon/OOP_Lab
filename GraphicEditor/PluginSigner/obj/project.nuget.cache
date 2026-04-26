@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wmQdx0QIDcU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ilkoon1\\OwnFloader\\bsuir\\OOP\\labs_wp\\OOP_Lab\\GraphicEditor\\PluginSigner\\PluginSigner.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ilkoon1\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}

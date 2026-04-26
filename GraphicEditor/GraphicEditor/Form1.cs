@@ -13,7 +13,7 @@ namespace GraphicEditor
 {
     public partial class MainForm : Form
     {
-        private readonly ShapeController _controller;
+        private readonly ExtendedShapeController _controller;
         private bool _is3DMode;
         private bool _isDrawing;
         private Point? _startPoint;
@@ -46,7 +46,7 @@ namespace GraphicEditor
 
         public MainForm()
         {
-            _controller = new ShapeController();
+            _controller = new ExtendedShapeController();
             _is3DMode = false;
             _isDrawing = true; // Drawing mode enabled by default
 
@@ -126,7 +126,18 @@ namespace GraphicEditor
 
             currentY += 40;
 
-
+            // Add Plugin Manager button (добавь в метод InitializeCustomControls)
+            Button pluginManagerButton = new Button
+            {
+                Text = "Plugin Manager",
+                Location = new Point(20, currentY + 100), // подбери подходящую позицию
+                Size = new Size(150, 35),
+                BackColor = Color.LightSteelBlue,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Arial", 10, FontStyle.Bold)
+            };
+            pluginManagerButton.Click += PluginManagerButton_Click;
+            panelEditor.Controls.Add(pluginManagerButton);
 
             currentY += 60;
 
@@ -174,7 +185,7 @@ namespace GraphicEditor
 
             listGroup.Controls.Add(shapesListBox);
 
-            currentY += 220; // Смещаем Y для следующего элемента
+            currentY += 220; 
 
 
             // Edit properties group
@@ -224,7 +235,7 @@ namespace GraphicEditor
                                             modeGroup,
                                             shapeGroup,
                                             listGroup,
-                                            editGroup  // ← Add this line
+                                            editGroup  
                                         });
 
             // Add all controls to panelEditor
@@ -242,6 +253,25 @@ namespace GraphicEditor
             panelDraw.BackColor = Color.White;
         }
 
+        private void PluginManagerButton_Click(object sender, EventArgs e)
+        {
+            var pluginManager = new GraphicEditor.UI.PluginManagerForm(_controller.PluginLoader);
+
+            // Subscribe to plugin list changes
+            pluginManager.PluginListChanged += (s, args) =>
+            {
+                // Refresh shape types and list when plugins change
+                this.BeginInvoke(new Action(() =>
+                {
+                    UpdateShapeTypes();      // Refresh the shape dropdown
+                    UpdateShapesList();      // Refresh the shapes listbox
+                    panelDraw.Invalidate();  // Redraw canvas
+                    statusLabel.Text = "Plugins updated - shape list refreshed";
+                }));
+            };
+
+            pluginManager.ShowDialog(this);
+        }
         private void UpdateShapeTypes()
         {
             shapeTypeCombo.Items.Clear();
@@ -712,8 +742,26 @@ namespace GraphicEditor
             }
         }
 
+        /// <summary>
+        /// Generates parameters string for shape creation based on mouse coordinates
+        /// </summary>
         private string GenerateShapeParameters(string shapeType, Point start, Point end)
         {
+            // Check for plugin shapes first
+            var plugin2D = _controller.Get2DPlugin(shapeType);
+            var plugin3D = _controller.Get3DPlugin(shapeType);
+
+            if (plugin2D != null)
+            {
+                return plugin2D.GenerateParameters(start, end);
+            }
+
+            if (plugin3D != null)
+            {
+                return plugin3D.GenerateParameters(start, end);
+            }
+
+            // Built-in shapes
             int x1 = Math.Min(start.X, end.X);
             int y1 = Math.Min(start.Y, end.Y);
             int x2 = Math.Max(start.X, end.X);
@@ -747,7 +795,6 @@ namespace GraphicEditor
             }
         }
 
-        // Добавьте этот метод в класс MainForm (например, после GenerateShapeParameters)
 
         /// <summary>
         /// Extracts parameters string from a 2D shape for serialization
@@ -831,6 +878,11 @@ namespace GraphicEditor
             }
         }
 
+
+
+        /// <summary>
+        /// Draws preview of shape while dragging mouse
+        /// </summary>
         private void DrawCurrentPreview(Graphics g)
         {
             if (_startPoint == null || _currentPoint == null || !_isDrawing)
@@ -840,46 +892,76 @@ namespace GraphicEditor
             {
                 previewPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
 
-                switch (_currentShapeType)
+                // Check if this is a plugin shape
+                var plugin2D = _controller.Get2DPlugin(_currentShapeType);
+                var plugin3D = _controller.Get3DPlugin(_currentShapeType);
+
+                if (plugin2D != null)
                 {
-                    case "Circle":
-                        int radius = (int)Math.Sqrt(
-                            Math.Pow(_currentPoint.Value.X - _startPoint.Value.X, 2) +
-                            Math.Pow(_currentPoint.Value.Y - _startPoint.Value.Y, 2));
-                        g.DrawEllipse(previewPen,
-                            _startPoint.Value.X - radius,
-                            _startPoint.Value.Y - radius,
-                            radius * 2, radius * 2);
-                        break;
+                    // Let the plugin draw its own preview
+                    plugin2D.DrawPreview(g, _startPoint.Value, _currentPoint.Value);
+                }
+                else if (plugin3D != null)
+                {
+                    // Let the 3D plugin draw its own preview
+                    plugin3D.DrawPreview(g, _startPoint.Value, _currentPoint.Value);
+                }
+                else
+                {
+                    // Built-in shapes preview
+                    switch (_currentShapeType)
+                    {
+                        case "Circle":
+                            int radius = (int)Math.Sqrt(
+                                Math.Pow(_currentPoint.Value.X - _startPoint.Value.X, 2) +
+                                Math.Pow(_currentPoint.Value.Y - _startPoint.Value.Y, 2));
+                            g.DrawEllipse(previewPen,
+                                _startPoint.Value.X - radius,
+                                _startPoint.Value.Y - radius,
+                                radius * 2, radius * 2);
+                            break;
 
-                    case "Rectangle":
-                        int x = Math.Min(_startPoint.Value.X, _currentPoint.Value.X);
-                        int y = Math.Min(_startPoint.Value.Y, _currentPoint.Value.Y);
-                        int width = Math.Abs(_currentPoint.Value.X - _startPoint.Value.X);
-                        int height = Math.Abs(_currentPoint.Value.Y - _startPoint.Value.Y);
-                        g.DrawRectangle(previewPen, x, y, width, height);
-                        break;
+                        case "Rectangle":
+                            int x = Math.Min(_startPoint.Value.X, _currentPoint.Value.X);
+                            int y = Math.Min(_startPoint.Value.Y, _currentPoint.Value.Y);
+                            int width = Math.Abs(_currentPoint.Value.X - _startPoint.Value.X);
+                            int height = Math.Abs(_currentPoint.Value.Y - _startPoint.Value.Y);
+                            g.DrawRectangle(previewPen, x, y, width, height);
+                            break;
 
-                    case "Triangle":
-                        int midX = (_startPoint.Value.X + _currentPoint.Value.X) / 2;
-                        int topY = Math.Min(_startPoint.Value.Y, _currentPoint.Value.Y) -
-                            (int)(Math.Abs(_currentPoint.Value.Y - _startPoint.Value.Y) * 0.8);
+                        case "Triangle":
+                            int midX = (_startPoint.Value.X + _currentPoint.Value.X) / 2;
+                            int topY = Math.Min(_startPoint.Value.Y, _currentPoint.Value.Y) -
+                                (int)(Math.Abs(_currentPoint.Value.Y - _startPoint.Value.Y) * 0.8);
 
-                        Point[] trianglePoints = new Point[]
-                        {
-                            _startPoint.Value,
-                            _currentPoint.Value,
-                            new Point(midX, topY)
-                        };
-                        g.DrawPolygon(previewPen, trianglePoints);
-                        break;
+                            Point[] trianglePoints = new Point[]
+                            {
+                        _startPoint.Value,
+                        _currentPoint.Value,
+                        new Point(midX, topY)
+                            };
+                            g.DrawPolygon(previewPen, trianglePoints);
+                            break;
 
-                    default:
-                        g.DrawLine(previewPen, _startPoint.Value, _currentPoint.Value);
-                        break;
+                        case "Cube":
+                        case "Sphere":
+                        case "Tetrahedron":
+                            // Simple rectangle preview for 3D shapes
+                            int rectX = Math.Min(_startPoint.Value.X, _currentPoint.Value.X);
+                            int rectY = Math.Min(_startPoint.Value.Y, _currentPoint.Value.Y);
+                            int rectWidth = Math.Abs(_currentPoint.Value.X - _startPoint.Value.X);
+                            int rectHeight = Math.Abs(_currentPoint.Value.Y - _startPoint.Value.Y);
+                            g.DrawRectangle(previewPen, rectX, rectY, rectWidth, rectHeight);
+
+                            // Draw diagonal to indicate 3D
+                            g.DrawLine(previewPen, rectX, rectY, rectX + rectWidth, rectY + rectHeight);
+                            g.DrawLine(previewPen, rectX + rectWidth, rectY, rectX, rectY + rectHeight);
+                            break;
+                    }
                 }
             }
 
+            // Draw start point marker
             using (Brush brush = new SolidBrush(Color.Red))
             {
                 g.FillEllipse(brush, _startPoint.Value.X - 3, _startPoint.Value.Y - 3, 6, 6);
@@ -904,7 +986,6 @@ namespace GraphicEditor
         /// </summary>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
 
             using (SaveFileDialog sfd = new SaveFileDialog())
             {
@@ -989,8 +1070,6 @@ namespace GraphicEditor
                         // Clear existing shapes
                         _controller.ClearAll();
 
-                        // Restore mode to match first shape (or keep current mode)
-                        // We'll load shapes into appropriate mode lists
                         foreach (var shapeData in container.Shapes)
                         {
                             try
