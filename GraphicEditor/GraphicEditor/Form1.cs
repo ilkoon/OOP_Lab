@@ -1,13 +1,14 @@
 using GraphicEditor.Controllers;
+using GraphicEditor.Models;
 using GraphicEditor.Models.Shapes;
 using GraphicEditor.Models.Shapes3D;
+using GraphicEditor.UI;
 using Newtonsoft.Json;  
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using GraphicEditor.Models;
 
 namespace GraphicEditor
 {
@@ -201,6 +202,59 @@ namespace GraphicEditor
                 Location = new Point(10, 25),
                 Size = new Size(480, 120)
             };
+
+            // Add Data Processor Settings button
+            Button dataProcessorButton = new Button
+            {
+                Text = "Data Processors",
+                Location = new Point(20, currentY + 50),
+                Size = new Size(150, 35),
+                BackColor = Color.LightYellow,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Arial", 9, FontStyle.Bold)
+            };
+            dataProcessorButton.Click += (s, e) => OpenDataProcessorSettings();
+            panelEditor.Controls.Add(dataProcessorButton);
+            currentY += 45;
+
+            // Add separator label
+            Label sepLabel = new Label
+            {
+                Text = "────────── XML with Processors ──────────",
+                Location = new Point(20, currentY + 50),
+                Size = new Size(250, 25),
+                Font = new Font("Arial", 8, FontStyle.Italic),
+                ForeColor = Color.Gray
+            };
+            panelEditor.Controls.Add(sepLabel);
+            currentY += 30;
+
+            // Add Save with Processors button
+            Button saveWithProcessorsBtn = new Button
+            {
+                Text = "💾 Save as XML (with processors)",
+                Location = new Point(500, currentY + 50),
+                Size = new Size(220, 35),
+                BackColor = Color.LightGreen,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Arial", 9, FontStyle.Bold)
+            };
+            saveWithProcessorsBtn.Click += (s, e) => SaveWithProcessors();
+            panelEditor.Controls.Add(saveWithProcessorsBtn);
+            currentY += 40;
+
+            // Add Load with Processors button
+            Button loadWithProcessorsBtn = new Button
+            {
+                Text = "📂 Load XML (with processors)",
+                Location = new Point(500, currentY + 50),
+                Size = new Size(220, 35),
+                BackColor = Color.LightBlue,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Arial", 9, FontStyle.Bold)
+            };
+            loadWithProcessorsBtn.Click += (s, e) => LoadWithProcessors();
+            panelEditor.Controls.Add(loadWithProcessorsBtn);
 
             // Create dynamic property controls (will be populated when shape is selected)
             txtParam1 = new TextBox { Location = new Point(120, 10), Size = new Size(150, 25), Visible = false };
@@ -1236,5 +1290,208 @@ namespace GraphicEditor
             int shapeCount = _controller.GetShapeCount();
             dleteToolStripMenuItem.Enabled = (shapeCount > 0 && shapesListBox.SelectedIndex != -1);
         }
+
+        #region XML Save/Load with Data Processors
+
+        /// <summary>
+        /// Saves shapes to XML file with data processor plugins
+        /// </summary>
+        private void SaveWithProcessors()
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "XML files (*.xml)|*.xml";
+                sfd.DefaultExt = "xml";
+                sfd.FileName = "shapes_processed.xml";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // 1. Build XML from shapes
+                        string xmlData = BuildXmlFromShapes();
+
+                        // 2. Apply data processors
+                        string processedData = _controller.DataProcessorLoader.ProcessBeforeSave(xmlData);
+
+                        // 3. Save to file
+                        File.WriteAllText(sfd.FileName, processedData);
+
+                        statusLabel.Text = $"Saved with processors to {sfd.FileName}";
+                        MessageBox.Show("File saved successfully with data processors!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error saving file: {ex.Message}", "Save Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        statusLabel.Text = "Error saving file";
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads shapes from XML file with data processor plugins
+        /// </summary>
+        private void LoadWithProcessors()
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "XML files (*.xml)|*.xml";
+                ofd.DefaultExt = "xml";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // 1. Read file
+                        string xmlData = File.ReadAllText(ofd.FileName);
+
+                        // 2. Apply data processors (reverse order)
+                        string processedData = _controller.DataProcessorLoader.ProcessAfterLoad(xmlData);
+
+                        // 3. Parse XML and restore shapes
+                        RestoreShapesFromXml(processedData);
+
+                        // 4. Update UI
+                        UpdateShapesList();
+                        panelDraw.Invalidate();
+
+                        statusLabel.Text = $"Loaded with processors from {ofd.FileName}";
+                        MessageBox.Show("File loaded successfully with data processors!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading file: {ex.Message}", "Load Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        statusLabel.Text = "Error loading file";
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Builds XML string from current shapes
+        /// </summary>
+        private string BuildXmlFromShapes()
+        {
+            var doc = new System.Xml.XmlDocument();
+            var root = doc.CreateElement("ShapesContainer");
+            doc.AppendChild(root);
+
+            // Add shapes element
+            var shapesElement = doc.CreateElement("Shapes");
+            root.AppendChild(shapesElement);
+
+            // Get all shapes from controller
+            var shapes2D = _controller.GetAllShapes2D();
+            var shapes3D = _controller.GetAllShapes3D();
+            var pluginShapes2D = _controller.PluginShapes2D;
+            var pluginShapes3D = _controller.PluginShapes3D;
+
+            // Helper function to add shape
+            void AddShape(string mode, string type, string parameters)
+            {
+                var shapeElement = doc.CreateElement("Shape");
+                shapeElement.SetAttribute("Mode", mode);
+                shapeElement.SetAttribute("Type", type);
+
+                var paramsElement = doc.CreateElement("Parameters");
+                paramsElement.InnerText = parameters;
+                shapeElement.AppendChild(paramsElement);
+
+                shapesElement.AppendChild(shapeElement);
+            }
+
+            // Add built-in 2D shapes
+            foreach (var shape in shapes2D)
+            {
+                AddShape("2D", shape.GetName(), GetShapeParameters(shape));
+            }
+
+            // Add built-in 3D shapes
+            foreach (var shape in shapes3D)
+            {
+                AddShape("3D", shape.GetName(), GetShapeParameters3D(shape));
+            }
+
+            // Add plugin 2D shapes
+            foreach (var shape in pluginShapes2D)
+            {
+                // Need to get parameters from plugin shape - implement accordingly
+                AddShape("2D", shape.GetName(), $"{0},{0},{0}");
+            }
+
+            // Add plugin 3D shapes
+            foreach (var shape in pluginShapes3D)
+            {
+                AddShape("3D", shape.GetName(), $"{0},{0},{0},{0}");
+            }
+
+            return doc.OuterXml;
+        }
+
+        /// <summary>
+        /// Restores shapes from XML string
+        /// </summary>
+        private void RestoreShapesFromXml(string xmlData)
+        {
+            var doc = new System.Xml.XmlDocument();
+            doc.LoadXml(xmlData);
+
+            // Clear existing shapes
+            _controller.ClearAll();
+
+            var shapesNode = doc.SelectSingleNode("/ShapesContainer/Shapes");
+            if (shapesNode == null) return;
+
+            foreach (System.Xml.XmlNode shapeNode in shapesNode.ChildNodes)
+            {
+                string mode = shapeNode.Attributes?["Mode"]?.Value ?? "2D";
+                string type = shapeNode.Attributes?["Type"]?.Value ?? "";
+                string parameters = shapeNode.SelectSingleNode("Parameters")?.InnerText ?? "";
+
+                // Temporarily switch mode if needed
+                bool originalMode = _is3DMode;
+                bool modeIs3D = mode == "3D";
+
+                if (originalMode != modeIs3D)
+                {
+                    _controller.SetMode(modeIs3D);
+                    _is3DMode = modeIs3D;
+                }
+
+                try
+                {
+                    _controller.CreateShape(type, parameters);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Failed to create shape {type}: {ex.Message}");
+                }
+
+                // Restore original mode
+                if (originalMode != modeIs3D)
+                {
+                    _controller.SetMode(originalMode);
+                    _is3DMode = originalMode;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Opens data processor settings form
+        /// </summary>
+        private void OpenDataProcessorSettings()
+        {
+            var settingsForm = new DataProcessorSettingsForm(_controller.DataProcessorLoader);
+            settingsForm.ShowDialog(this);
+        }
+
+        #endregion
+
     }
+
 }

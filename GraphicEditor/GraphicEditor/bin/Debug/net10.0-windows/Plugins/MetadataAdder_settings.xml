@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <AppName>WWWW</AppName>
+  <DateFormat>yyyy-MM-dd</DateFormat>
+  <IncludeAppVersion>True</IncludeAppVersion>
+  <IncludeUsername>False</IncludeUsername>
+</Settings>

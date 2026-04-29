@@ -1,0 +1,23 @@
+<ShapesContainer>
+  <Metadata>
+    <SavedAt>2026-04-29</SavedAt>
+    <Application>WWWW</Application>
+    <AppVersion>1.0.0+58f0a87d36ff1b65c3bb38670757e066012c1d70</AppVersion>
+    <MachineName>ILKOON</MachineName>
+    <ShapeCount>4</ShapeCount>
+  </Metadata>
+  <Shapes>
+    <Shape Mode="2D" Type="Circle">
+      <Parameters>465,180,342</Parameters>
+    </Shape>
+    <Shape Mode="2D" Type="Rectangle">
+      <Parameters>779,668,105,222</Parameters>
+    </Shape>
+    <Shape Mode="2D" Type="Hexagon">
+      <Parameters>0,0,0</Parameters>
+    </Shape>
+    <Shape Mode="2D" Type="Star">
+      <Parameters>0,0,0</Parameters>
+    </Shape>
+  </Shapes>
+</ShapesContainer>

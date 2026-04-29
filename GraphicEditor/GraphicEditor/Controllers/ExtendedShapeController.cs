@@ -6,6 +6,7 @@ using GraphicEditor.Adapters;
 using GraphicEditor.Models.Shapes;
 using GraphicEditor.Models.Shapes3D;
 using GraphicEditor.Plugins;
+using GraphicEditor.Plugins.DataProcessors;
 
 namespace GraphicEditor.Controllers
 {
@@ -19,6 +20,10 @@ namespace GraphicEditor.Controllers
         private readonly List<IPluginShape2D> _pluginShapes2D;
         private readonly List<IPluginShape3D> _pluginShapes3D;
 
+        //XML
+        private readonly DataProcessorLoader _dataProcessorLoader;
+        public DataProcessorLoader DataProcessorLoader => _dataProcessorLoader;
+
         // Maps display name -> plugin
         private readonly Dictionary<string, IShape2DPlugin> _plugin2DMap;
         private readonly Dictionary<string, IShape3DPlugin> _plugin3DMap;
@@ -27,6 +32,7 @@ namespace GraphicEditor.Controllers
         private static readonly string[] BuiltIn2DShapes = { "Circle", "Rectangle", "Triangle" };
         private static readonly string[] BuiltIn3DShapes = { "Cube", "Sphere", "Tetrahedron" };
 
+
         public IReadOnlyList<IPluginShape2D> PluginShapes2D => _pluginShapes2D.AsReadOnly();
         public IReadOnlyList<IPluginShape3D> PluginShapes3D => _pluginShapes3D.AsReadOnly();
         public PluginLoader PluginLoader => _pluginLoader;
@@ -34,6 +40,7 @@ namespace GraphicEditor.Controllers
         public ExtendedShapeController() : base()
         {
             _pluginLoader = new PluginLoader();
+            _dataProcessorLoader = new DataProcessorLoader();
             _pluginShapes2D = new List<IPluginShape2D>();
             _pluginShapes3D = new List<IPluginShape3D>();
             _plugin2DMap = new Dictionary<string, IShape2DPlugin>();
@@ -41,6 +48,7 @@ namespace GraphicEditor.Controllers
 
             // Load plugins from the Plugins folder
             _pluginLoader.LoadAllPlugins();
+            _dataProcessorLoader.LoadAllProcessors();
             RegisterPlugins();
         }
 

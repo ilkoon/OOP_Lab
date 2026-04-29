@@ -1,7 +1,10 @@
 <Solution>
   <Project Path="GraphicEditor/GraphicEditor.csproj" />
   <Project Path="HexagonPlugin/HexagonPlugin.csproj" Id="1f26a8fd-a5c8-4f14-8c34-f0e8d4e363e0" />
+  <Project Path="MetadataAdderPlugin/MetadataAdderPlugin.csproj" Id="9bd116a7-4836-41bd-9039-bf0f25b76db2" />
   <Project Path="PentagonPlugin/PentagonPlugin.csproj" Id="ea699564-bac2-4812-a018-34dfdaae24d3" />
   <Project Path="PluginSigner/PluginSigner.csproj" Id="116e1d6b-aa83-400f-80fa-a0a0a11e417a" />
+  <Project Path="ShapeFilterPlugin/ShapeFilterPlugin.csproj" Id="d25ecac3-72ab-4f3a-99b1-3afbac076e04" />
   <Project Path="StarPlugin/StarPlugin.csproj" Id="58889089-6b71-4d4b-a534-5729bef8b737" />
+  <Project Path="XmlPrettyFormatter/XmlPrettyFormatter.csproj" Id="25adf845-42cc-485b-bf38-5aeb1067326a" />
 </Solution>

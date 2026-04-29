@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StarPlugin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+731ed1cb7ccea76c4d7301c06b12630378163ce6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+58f0a87d36ff1b65c3bb38670757e066012c1d70")]
 [assembly: System.Reflection.AssemblyProductAttribute("StarPlugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StarPlugin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
